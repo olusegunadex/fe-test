@@ -17,8 +17,11 @@ export const SuccessCriteria = () => (
           <Link href={`/my-awesome-chart`} className="underline hover:no-underline">
             /my-awesome-chart
           </Link>{" "}
-          route.
-          Here&apos;s a <a href="/chart-reference.png" className="underline font-bold hover:no-underline">reference image</a> if useful.
+          route. Here&apos;s a{" "}
+          <a href="/chart-reference.png" className="font-bold underline hover:no-underline">
+            reference image
+          </a>{" "}
+          if useful.
         </li>
         <li>
           For time-series data, please use the following JSON data source which contains GBP to USD exchange rates from
@@ -40,11 +43,12 @@ export const SuccessCriteria = () => (
         </li>
         <li>
           We&apos;ll request this API data from the <code>my-awesome-chart/page.tsx</code> server component &ndash;
-          worth checking the docs at this point if new to Next.js 13.4+.<br/>
+          worth checking the docs at this point if new to Next.js 13.4+.
+          <br />
           <strong>Hint:</strong> When you have the time-series data , you may need to transform it into a different
           format for <strong>VictoryLine</strong> to work correctly.
-          <p className="whitespace-pre text-xs rounded-md mt-4 bg-slate-300/20 font-mono">
-          {`
+          <p className="mt-4 whitespace-pre rounded-md bg-slate-300/20 font-mono text-xs">
+            {`
           {
             x: "date"
             y: value
@@ -53,8 +57,11 @@ export const SuccessCriteria = () => (
           </p>
         </li>
         <li>
-          Create a new chart component which we&apos;ll use as container.<br />
-          <strong>Important:</strong> This will need to be a <em>client</em> component for Victory to work correctly (search for <em>&quot;use client&quot;</em> in the Next.js docs). Pass the data to the chart component via props.
+          Create a new chart component which we&apos;ll use as container.
+          <br />
+          <strong>Important:</strong> This will need to be a <em>client</em> component for Victory to work correctly
+          (search for <em>&quot;use client&quot;</em> in the Next.js docs). Pass the data to the chart component via
+          props.
         </li>
         <li>
           Import Victory in the chart component (Victory is already installed in the project) and use the{" "}

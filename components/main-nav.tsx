@@ -30,7 +30,9 @@ export function MainNav({ items }: MainNavProps) {
                   className={cn(
                     "flex items-center text-lg font-semibold text-muted-foreground sm:text-sm",
                     item.disabled && "cursor-not-allowed opacity-80",
-                    pathname === item.href ? "text-foreground shadow-[0_3px_0px_rgba(0,0,0,.7)]" : "text-muted-foreground hover:shadow-[0_3px_0px_rgba(0,70,120,.1)]"
+                    pathname === item.href
+                      ? "text-foreground shadow-[0_3px_0px_rgba(0,0,0,.7)]"
+                      : "text-muted-foreground hover:shadow-[0_3px_0px_rgba(0,70,120,.1)]"
                   )}
                 >
                   {item.title}
