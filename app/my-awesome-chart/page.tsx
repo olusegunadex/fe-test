@@ -1,4 +1,5 @@
 import { Title } from "@/components/ui/title";
+import { Chart } from "@/components/chart";
 import { GridContainer } from "@/components/grid-container";
 
 export default function AwesomeChart() {
@@ -6,7 +7,9 @@ export default function AwesomeChart() {
     <GridContainer>
       <Title>My Awesome Chart</Title>
 
-      <div className="flex h-full w-full flex-col">Display your awesome chart here...</div>
+      <div className="flex h-full w-full flex-col">
+        <Chart />
+      </div>
     </GridContainer>
   );
 }
