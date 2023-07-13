@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { VictoryChart, VictoryGroup, VictoryLine } from "victory";
+import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLine } from "victory";
 
 export function Chart() {
   const [ratesOne, setRatesOne] = useState("");
@@ -68,8 +68,25 @@ export function Chart() {
   return (
     <>
       {ratesOne && ratesTwo ? (
-        <div>
+        <div style={{ height: "800px", maxWidth: "100%" }}>
           <VictoryChart domainPadding={20} minDomain={{ y: 1.1 }} maxDomain={{ y: 1.72 }}>
+            <VictoryAxis
+              tickFormat={(x) => x}
+              style={{
+                tickLabels: { fontSize: 4 },
+                ticks: { stroke: "grey", size: 2 },
+              }}
+            />
+            <VictoryAxis
+              dependentAxis
+              tickFormat={(y) => `${y}`}
+              style={{
+                tickLabels: { fontSize: 4 },
+                axis: { stroke: "#756f6a" },
+                grid: { stroke: "#f6f6f6" },
+                ticks: { stroke: "grey", size: 2 },
+              }}
+            />
             <VictoryGroup>
               <VictoryLine
                 data={Object.entries(normData).map(([x, y]) => ({ x, y: y.y1 }))}
