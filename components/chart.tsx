@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { VictoryChart } from "victory";
+import { VictoryChart, VictoryLine } from "victory";
 
 export function Chart() {
   const [ratesOne, setRatesOne] = useState("");
   const [ratesTwo, setRatesTwo] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [normData, setNormData] = useState([]);
 
   const reqUrl1 = "https://api.frankfurter.app/2023-01-01..2023-01-31?from=GBP&to=USD";
   const reqUrl2 = "https://api.frankfurter.app/2013-01-01..2013-01-31?from=GBP&to=USD";
@@ -38,7 +39,51 @@ export function Chart() {
     });
   }, []);
 
-  console.log("rates one and two", ratesOne, ratesTwo);
+  interface Rate {
+    USD: number;
+  }
+  interface NormalizedRate {
+    y2: number;
+    y1: number;
+  }
 
-  return <div>chart</div>;
+  useEffect(() => {
+    if (isLoaded && ratesOne && ratesTwo) {
+      const normalizedRates: { [key: string]: NormalizedRate } = {};
+
+      Object.keys(ratesOne).forEach((dateKey: string) => {
+        const compDateKey: string = dateKey.replace("2023", "2013");
+        if (ratesTwo[compDateKey]) {
+          normalizedRates[dateKey] = {
+            y2: ratesTwo[compDateKey].USD,
+            y1: ratesOne[dateKey].USD,
+          };
+        }
+      });
+
+      setNormData(normalizedRates);
+    }
+  }, [isLoaded]);
+
+  return (
+    <>
+      {ratesOne && ratesTwo ? (
+        <div>
+          <VictoryChart>
+            <VictoryLine
+              data={Object.entries(normData).map(([x, y]) => ({ x, y: y.y1 }))}
+              x="x"
+              y="y"
+              style={{
+                data: { stroke: "#c43a31", strokeWidth: 1 },
+                parent: { border: "1px solid #ccc" },
+              }}
+            />
+          </VictoryChart>
+        </div>
+      ) : (
+        <h4>Loading...</h4>
+      )}
+    </>
+  );
 }
