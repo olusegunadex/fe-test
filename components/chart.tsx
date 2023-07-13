@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLine } from "victory";
+import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLegend, VictoryLine } from "victory";
 
 export function Chart() {
   const [ratesOne, setRatesOne] = useState("");
@@ -68,24 +68,48 @@ export function Chart() {
   return (
     <>
       {ratesOne && ratesTwo ? (
-        <div style={{ height: "800px", maxWidth: "100%" }}>
-          <VictoryChart domainPadding={20} minDomain={{ y: 1.1 }} maxDomain={{ y: 1.72 }}>
+        <div style={{ maxWidth: "100%" }}>
+          <VictoryChart domainPadding={{ y: 2 }} minDomain={{ y: 1.1 }} maxDomain={{ y: 1.72 }}>
+            <VictoryLegend
+              x={250}
+              y={30}
+              orientation="horizontal"
+              gutter={10}
+              style={{ border: { stroke: "black" }, title: { fontSize: 20 }, labels: { fontSize: 4 } }}
+              data={[{ name: "Jan 2023: GBP to USD", symbol: { fill: "#7373f3" } }, { name: "Jan 2013: GBP to USD" }]}
+            />
             <VictoryAxis
               tickFormat={(x) => x}
               style={{
                 tickLabels: { fontSize: 4 },
                 ticks: { stroke: "grey", size: 2 },
+                axisLabel: {
+                  fontSize: 6,
+                },
+                axis: {
+                  stroke: "#000",
+                  strokeWidth: 3,
+                },
               }}
+              label="Date"
             />
             <VictoryAxis
               dependentAxis
               tickFormat={(y) => `${y}`}
               style={{
                 tickLabels: { fontSize: 4 },
-                axis: { stroke: "#756f6a" },
+                axis: {
+                  stroke: "#000",
+                  strokeWidth: 1,
+                  padding: { left: 2, right: 2 },
+                },
                 grid: { stroke: "#f6f6f6" },
                 ticks: { stroke: "grey", size: 2 },
+                axisLabel: {
+                  fontSize: 6,
+                },
               }}
+              label="GBP to USD"
             />
             <VictoryGroup>
               <VictoryLine
@@ -93,7 +117,7 @@ export function Chart() {
                 x="x"
                 y="y"
                 style={{
-                  data: { stroke: "#c43a31", strokeWidth: 1 },
+                  data: { stroke: "#7373f3", strokeWidth: 1 },
                   parent: { border: "1px solid #ccc" },
                 }}
               />
