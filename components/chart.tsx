@@ -69,7 +69,7 @@ export function Chart() {
     <>
       {ratesOne && ratesTwo ? (
         <div style={{ maxWidth: "100%" }}>
-          <VictoryChart domainPadding={{ y: 2 }} minDomain={{ y: 1.1 }} maxDomain={{ y: 1.72 }}>
+          <VictoryChart minDomain={{ y: 1.1 }} maxDomain={{ y: 1.72 }}>
             <VictoryLegend
               x={250}
               y={30}
@@ -79,7 +79,7 @@ export function Chart() {
               data={[{ name: "Jan 2023: GBP to USD", symbol: { fill: "#7373f3" } }, { name: "Jan 2013: GBP to USD" }]}
             />
             <VictoryAxis
-              tickFormat={(x) => x}
+              tickFormat={(x) => `${new Date(x).toDateString().slice(0, 3)}\n${new Date(x).toLocaleDateString()}`}
               style={{
                 tickLabels: { fontSize: 4 },
                 ticks: { stroke: "grey", size: 2 },
@@ -101,7 +101,6 @@ export function Chart() {
                 axis: {
                   stroke: "#000",
                   strokeWidth: 1,
-                  padding: { left: 2, right: 2 },
                 },
                 grid: { stroke: "#f6f6f6" },
                 ticks: { stroke: "grey", size: 2 },
