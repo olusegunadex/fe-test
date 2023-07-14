@@ -5,10 +5,10 @@ import axios from "axios";
 import { VictoryAxis, VictoryChart, VictoryGroup, VictoryLegend, VictoryLine } from "victory";
 
 export function Chart() {
-  const [ratesOne, setRatesOne] = useState("");
-  const [ratesTwo, setRatesTwo] = useState("");
+  const [ratesOne, setRatesOne] = useState<{ [key: string]: { USD: number } }>({});
+  const [ratesTwo, setRatesTwo] = useState<{ [key: string]: { USD: number } }>({});
   const [isLoaded, setIsLoaded] = useState(false);
-  const [normData, setNormData] = useState([]);
+  const [normData, setNormData] = useState<{ [key: string]: NormalizedRate }>({});
 
   const reqUrl1 = "https://api.frankfurter.app/2023-01-01..2023-01-31?from=GBP&to=USD";
   const reqUrl2 = "https://api.frankfurter.app/2013-01-01..2013-01-31?from=GBP&to=USD";
@@ -52,7 +52,7 @@ export function Chart() {
       const normalizedRates: { [key: string]: NormalizedRate } = {};
 
       Object.keys(ratesOne).forEach((dateKey: string) => {
-        const compDateKey: string = dateKey.replace("2023", "2013");
+        const compDateKey = dateKey.replace("2023", "2013");
         if (ratesTwo[compDateKey]) {
           normalizedRates[dateKey] = {
             y2: ratesTwo[compDateKey].USD,
@@ -63,7 +63,7 @@ export function Chart() {
 
       setNormData(normalizedRates);
     }
-  }, [isLoaded]);
+  }, [isLoaded, ratesOne, ratesTwo]);
 
   return (
     <>
